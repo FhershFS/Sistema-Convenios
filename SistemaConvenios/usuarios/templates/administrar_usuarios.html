@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% csrf_token %}
+<!-- user_list.html -->
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+    <h1>Administrar Usuarios</h1>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #5e72e4;
+            color: #dddddd;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>E-Mail</th>
+                <th> ㅤ </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.first_name }}</td>
+                    <td> {{ usuario.last_name }} </td>
+                    <td> {{ usuario.email }} </td>
+                    <td>
+                        <form action="{% url 'editar_usuario' usuario.id %}" method="get" style="display:inline;">
+                            <button class="btn btn-primary float-right" type="submit">Cambiar Permisos</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

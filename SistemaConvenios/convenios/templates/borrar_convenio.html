@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+    <h1>Borrar convenio</h1>
+    <h3>¿Esta seguro de que quiere borrar el siguiente Convenio?</h3>
+    <dl>
+        <dd>{{ convenio.numero }}</dd>
+        <dd>{{ convenio.tipo }}</dd>        
+        <!-- Add other fields as needed -->
+    </dl>
+    <form method="POST" class="card p-3 mt-5" autocomplete="off" action="{% url 'borrar_convenio' convenio.id%}">
+        {% csrf_token %}
+        {{form|crispy}}
+        <br>
+        <button type="submit" class="btn btn-danger mt-3">Borrar</button>
+    </form>
+    <a type="button" class="btn btn-primary" href="{% url 'bienvenida' %}">Cancelar</a>
+</div>
+{% endblock %}

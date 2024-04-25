@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+{% block titulo %}
+            Bienvenido
+{% endblock titulo %}
+
+{% load auth_extras %}
+
+{% block content %}
+   <br>
+   {% for message in messages %}
+      {{message}}
+   {% endfor%}
+   <br>
+   <br>
+   <h1 style="margin-left: 2%;"> Sistema de Convenios </h1>
+   <br>
+   <br>
+   <h2 style="margin-left: 2%;"> Oficina del Abogado General de la UAZ  </h2>
+   <br>
+   <br>
+   <h2 style="margin-left: 2%;"> Dra. Mabil Madariaga Ávila </h2>
+
+   <br>
+   <br>
+
+   {% if not request.user|has_group:"admin" and not request.user|has_group:"vinculacion" and not request.user|has_group:"movilidad" %}
+      <h3 style="color:red; margin-left: 2%; "> Espera a que se te asigne un grupo</h3>
+   {% endif %}
+{% endblock content %}

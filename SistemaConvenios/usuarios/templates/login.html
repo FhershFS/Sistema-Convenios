@@ -1,0 +1,40 @@
+
+
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary border-0 mb-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Sign in with credentials</small>
+              </div>
+              <form role="form" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-4" id="submit"> Log in </button> 
+                    </div>
+                    <div class="col-6 text-right">
+                      <a target="_blank" rel="noopener noreferrer" href="{% url 'password_reset' %}" class="text-light"><small>Recuperar contraseña</small></a>
+                    </div>          
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

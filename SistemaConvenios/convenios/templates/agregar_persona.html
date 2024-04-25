@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+    <h1>Agregar Persona</h1>
+    <form method="POST" class="card p-3 mt-5" autocomplete="off" action="{% url 'agregar_persona'%}">
+        {% csrf_token %}
+        {{form|crispy}}
+        <br>
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+    </form>
+    <a type="button" class="btn btn-danger" href="{% url 'bienvenida' %}">Cancelar</a>
+</div>
+{% endblock %}

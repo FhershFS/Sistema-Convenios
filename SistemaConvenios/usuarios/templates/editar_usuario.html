@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+    <h1>Asignar grupo a usuario {{ user_profile.username }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Guardar">
+    </form>
+</div>
+
+{% endblock content %}

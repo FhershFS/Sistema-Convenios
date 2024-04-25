@@ -1,0 +1,203 @@
+{% extends 'layouts/base.html' %}
+{% block titulo %}
+            Convenios varios
+{% endblock titulo %}
+
+
+{% block content %}
+
+<br>
+   <h3 style="margin-left: 2%; margin-top: 2%;"> Sistema de Convenios - Varios </h1>
+<br>
+
+<!-- Botón Filtros -->
+<br>
+<button id="btnFiltros" class="btn btn-primary float-right" onclick="toggleFiltros()">Filtros</button>
+
+
+<br>
+
+   <form method="GET" action=".">
+
+   <div id="filtrosContainer" style="display:none">
+
+      <div class="form-group col-4">
+         <div class="input-group">
+             <input class="form-control py-2 border-right-0 border" type="search" name="clave_id" placeholder="Clave de convenio..." />
+             <span class="input-group-append">
+                 <div class="input-group-text bg-transparent">
+                     <i class="fa fa-search"></i>
+                 </div>
+             </span>
+         </div>
+     </div>  
+
+      <div class="form-row" style="margin-left: 1%;">
+         <div class="form-group col-md-3">
+            <label for="category">Unidad Academica</label>
+            <select id="category" class="form-control" name="category">
+               <option selected>Choose...</option>
+               {% for unidad_academica in unidades_academicas %}
+                  <option value="{{ unidad_academica.id }}">{{ unidad_academica.nombre }}</option>
+               {% endfor %}
+            </select>
+         </div>
+      
+         <div class="form-group col-md-3">
+            <label for="category_persona">Persona</label>
+            <select id="category_persona" class="form-control" name="category_persona">
+               <option selected>Choose...</option>
+               {% for persona in personas %}
+                  <option value="{{ persona.id }}">{{ persona.nombre }}</option>
+               {% endfor %}
+            </select>
+         </div>
+
+         <div class="form-group col-md-3">
+         <label for="status">Status</label>
+         <select id="status" class="form-control" name="status">
+         <option selected>Choose...</option>
+        {% for estado_value, estado_label in ESTADOS_CONVENIO %}
+            <option value="{{ estado_value }}">{{ estado_label }}</option>
+        {% endfor %}
+         </select>
+         </div>
+
+
+      </div>
+
+
+      
+   <div class="form-row" style="margin-left: 1%;">
+   <div class="form-group col-md-6 col-lg-3"> <br>
+      <label for="publishDateMin">Desde fecha de ingreso mínima</label>
+      <input type="date" class="form-control" id="publishDateMin" name="date_min">
+    </div>
+    <div class="form-group col-md-6 col-lg-3"><br>
+      <label for="publishDateMax">Hasta fecha de ingreso máxima</label>
+      <input type="date" class="form-control" id="publishDateMax" name="date_max">
+    </div>
+   </div>
+
+   <div class="form-row" style="margin-left: 1%;">
+      <div class="form-group col-md-6 col-lg-3"> <br>
+         <label for="publishDateMin">Desde fecha de salida mínima </label>
+         <input type="date" class="form-control" id="publishDateMin" name="date_min_salida">
+       </div>
+       <div class="form-group col-md-6 col-lg-3"><br>
+         <label for="publishDateMax">Hasta Fecha de salida máxima</label>
+         <input type="date" class="form-control" id="publishDateMax" name="date_max_salida">
+       </div>
+      </div>
+
+   <div class="form-row" style="margin-left: 1%;">
+         <div class="form-group col-md-6 col-lg-3"> <br>
+            <label for="publishDateMin">Desde fecha de inicio mínima </label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min_inicio">
+          </div>
+          <div class="form-group col-md-6 col-lg-3"><br>
+            <label for="publishDateMax">Hasta fecha de inicio máxima</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max_inicio">
+          </div>
+      </div>
+
+      <div class="form-row" style="margin-left: 1%;">
+         <div class="form-group col-md-6 col-lg-3"> <br>
+            <label for="publishDateMin">Desde fecha de término mínima </label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min_termino">
+          </div>
+          <div class="form-group col-md-6 col-lg-3"><br>
+            <label for="publishDateMax">Hasta fecha de término máxima </label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max_termino">
+          </div>
+      </div>
+    
+
+
+   <div class=" form-group col-md-4">
+   <button type="submit" class="btn btn-primary">Buscar</button>
+   </form> </div>
+
+   </div>
+
+</div>
+
+  <br>
+
+   <div> <br>
+      <a type="button" class="btn btn-success float-right" href="{% url 'agregar_convenio'%}"><i class="fa fa-plus" aria-hidden="true"></i>  Convenio  <a>
+      <a type="button"  class="btn btn-success float-right" href="{% url 'agregar_unidad'%}"><i class="fa fa-plus" aria-hidden="true"></i>  Unidad Académica  <a>
+      <a type="button"  class="btn btn-success float-right" href="{% url 'agregar_persona'%}"><i class="fa fa-plus" aria-hidden="true"></i>  Persona  <a>   
+   </div><br>
+   <br><br>
+
+   {% if not convenios %}
+    <h1 style="margin-left: 25%; font-size: 20pt; margin-top: -5%;" >No se encontraron resultados.</h1>
+
+   {% else %}
+    
+    <div style="overflow-x: auto;  max-height: calc(1000vh - 100px); scrollbar-width:thin; -webkit-scrollbar-width: thin;">
+        <table class="table" style="margin-left: 20%;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Número</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Fecha Inicio</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Participantes</th>
+                    <th scope="col">Unidad Académica</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for convenio in convenios%}
+         
+               <tr>
+                  <!--<th scope="row">1</th>-->
+                  <td>{{convenio.numero}}</td>
+                  <td>{{convenio.tipo}}</td>
+                  <td>{{convenio.fecha_inicio}}</td>
+                  <td>{{convenio.ubicacion}}</td>
+                  <td>
+                     {% for persona in personas %}
+                         {% if convenio.persona_tramito_id == persona.id %}
+                             {{ persona.nombre }}
+                         {% endif %}
+                     {% endfor %}
+                  </td>
+                  <td>
+                     {% for unidad_academica in unidades_academicas %}
+                         {% if convenio.unidad_academica_id == unidad_academica.id %}
+                             {{ unidad_academica.nombre }}
+                         {% endif %}
+                     {% endfor %}
+                 </td>
+                  <td>{{convenio.estado}}</td>
+                  <td>
+                     <div style="margin-top: 1%; margin-right: 20%;" >
+                        <a type="button" class="btn btn-danger float-right" href="{% url 'borrar_convenio' convenio.id%}" style="margin-top: -2%;"><i class="fa fa-trash" aria-hidden="true"></i> <a>
+                        <a type="button" class="btn btn-success float-right" href="{% url 'editar_convenio' convenio.id%}" style="margin-top: -2%;"><i class="fa fa-plus" aria-hidden="true"></i><a> 
+                        <a type="button" class="btn btn-success float-right" href="{% url 'mostar_detalles_convenio' convenio.id%}" style="margin-top: -2%; margin-right: 2%;"> <i class="fa fa-eye" aria-hidden="true"></i><a>  
+                     </div>
+                     <div>
+                        
+                     </div>
+                  </td>
+               </tr>
+            {% endfor %}
+      </tbody>
+      </table>
+      </div>
+
+
+      <script>
+         function toggleFiltros() {
+             var filtrosContainer = document.getElementById('filtrosContainer');
+             filtrosContainer.style.display = (filtrosContainer.style.display === 'none' || filtrosContainer.style.display === '') ? 'block' : 'none';
+         }
+      </script>
+   {% endif %}
+
+   
+   
+{% endblock content %}

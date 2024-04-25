@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+            Convenios con diversas instituciones
+{% endblock titulo %}
+
+
+{% block content %}
+
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+    {{form|crispy}}
+</div>
+{% endblock content %}

@@ -1,0 +1,45 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary border-0 mb-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Sign in with credentials</small>
+              </div>
+              <form role="form" method="post">
+              {% csrf_token %}
+              <div>
+              <label id="labelValidar" class='labelRegistrar'>Ingresa tu nueva Contraseña:</label>
+              <input type="password" name="password" placeholder="Contraseña" class="inputRegistrar " />
+              </div>
+              <br>
+              <br>
+              <div>
+              <label for="password-confirm"  class='texto-campos'>Confirma tu nueva contraseña:</label>
+              <input type="password"  class="campos-texto"  name="password-confirm" required>
+              </div>
+              <div class="text-center">
+                 <button id="botonSiguiente" class='botonLogin' type="submit">Restablecer contraseña</button>
+              </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
